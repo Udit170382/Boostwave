@@ -1,0 +1,698 @@
+<html lang="en" class="scroll-smooth"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boostwave AI | The Growth Infrastructure</title>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Iconify -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<!-- Tailwind Config -->
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    brand: '#6366f1', // Indigo 500 (More modern tech feel)
+                    brandDark: '#4f46e5', 
+                    brandLight: '#818cf8', 
+                    accent: '#a855f7', // Purple accent
+                    void: '#000000', 
+                    surface: '#050505', 
+                },
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    display: ['Space Grotesk', 'sans-serif'],
+                },
+                animation: {
+                    'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'blob': 'blob 10s infinite',
+                    'scan': 'scan 3s linear infinite',
+                    'shimmer': 'shimmer 2.5s linear infinite',
+                    'float': 'float 6s ease-in-out infinite',
+                },
+                keyframes: {
+                    blob: {
+                        '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                        '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                        '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                        '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                    },
+                    scan: {
+                        '0%': { left: '-5%', opacity: '0' },
+                        '5%': { opacity: '1' },
+                        '90%': { opacity: '1' },
+                        '100%': { left: '105%', opacity: '0' },
+                    },
+                    shimmer: {
+                        'from': { backgroundPosition: '0 0' },
+                        'to': { backgroundPosition: '-200% 0' }
+                    },
+                    float: {
+                        '0%, 100%': { transform: 'translateY(0)' },
+                        '50%': { transform: 'translateY(-10px)' },
+                    }
+                }
+            }
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: #000000;
+        color: #a1a1aa;
+        margin: 0;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Aura Grid Background */
+    .bg-grid-aura {
+        background-size: 50px 50px;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    }
+    
+    .mask-radial-faded {
+        mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #000000;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #27272a;
+        border-radius: 3px;
+    }
+
+    /* Glass Panels */
+    .glass-panel {
+        background: rgba(10, 10, 10, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+        background: linear-gradient(180deg, rgba(20, 20, 20, 0.4) 0%, rgba(10, 10, 10, 0.4) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .glass-card:hover {
+        border-color: rgba(99, 102, 241, 0.3); /* Brand color border on hover */
+        background: linear-gradient(180deg, rgba(30, 30, 35, 0.5) 0%, rgba(15, 15, 20, 0.5) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+    }
+
+    /* Text Gradient Animation */
+    .text-gradient-animate {
+        background: linear-gradient(to right, #ffffff, #818cf8, #a855f7, #ffffff);
+        background-size: 200% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: shimmer 5s linear infinite;
+    }
+
+    /* 3D Dashboard Transform */
+    .perspective-container {
+        perspective: 1200px;
+    }
+    .dashboard-mockup {
+        transform: rotateX(10deg) rotateY(0deg) scale(0.95);
+        transform-style: preserve-3d;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    
+    /* FAQ Detail Styles */
+    details > summary {
+        list-style: none;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+    details[open] summary ~ * {
+        animation: sweep .3s ease-in-out;
+    }
+    @keyframes sweep {
+        0%    {opacity: 0; transform: translateY(-10px)}
+        100%  {opacity: 1; transform: translateY(0)}
+    }
+
+    .nav-blur {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    /* Logo Container for Social Media export feel */
+    .logo-mark {
+        background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.01) 100%);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+</style>
+</head>
+<body class="selection:bg-brand/30 selection:text-white font-sans antialiased relative">
+
+    <!-- AURA BACKGROUND LAYER START -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-black">
+        <!-- Main Grid with Fade Mask -->
+        <div class="absolute inset-0 bg-grid-aura mask-radial-faded opacity-40"></div>
+        
+        <!-- Top Spotlight / Aurora Effect -->
+        <div class="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-brand/10 blur-[120px] opacity-50 mix-blend-screen animate-pulse-slow"></div>
+        <div class="absolute top-[10%] left-[20%] w-[400px] h-[400px] rounded-full bg-blue-600/10 blur-[100px] opacity-30 animate-blob mix-blend-screen"></div>
+        <div class="absolute top-[10%] right-[20%] w-[400px] h-[400px] rounded-full bg-accent/10 blur-[100px] opacity-30 animate-blob mix-blend-screen" style="animation-delay: 2s;"></div>
+    </div>
+    <!-- AURA BACKGROUND LAYER END -->
+
+    <!-- Floating Navigation -->
+    <div class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+        <nav class="nav-blur border border-white/10 rounded-full pl-3 pr-2 py-2 flex items-center justify-between shadow-2xl shadow-black/80 max-w-4xl w-full">
+            <div class="flex items-center">
+                <!-- NEW LOGO START -->
+                <a href="#" class="group flex items-center gap-3">
+                    <div class="logo-mark relative flex items-center justify-center w-9 h-9 rounded-xl border border-white/5 transition-transform group-hover:scale-105 group-hover:shadow-[0_0_20px_-5px_rgba(99,102,241,0.5)]">
+                        <!-- Inner Glow -->
+                        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                        <!-- Icon -->
+                        <iconify-icon icon="solar:infinity-bold" class="relative z-10 text-white text-lg drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]"></iconify-icon>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <span class="text-base font-display font-bold tracking-tight text-white leading-none">
+                            Boostwave
+                        </span>
+                    </div>
+                </a>
+                <!-- LOGO END -->
+            </div>
+            
+            <div class="hidden md:flex items-center gap-1 bg-white/5 rounded-full p-1 border border-white/5 mx-4">
+                <a href="#problem" class="px-4 py-1.5 text-[13px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-all">Why Us</a>
+                <a href="#services" class="px-4 py-1.5 text-[13px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-all">Services</a>
+                <a href="#case-studies" class="px-4 py-1.5 text-[13px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-all">Results</a>
+                <a href="#faq" class="px-4 py-1.5 text-[13px] font-medium text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-all">FAQ</a>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <a href="https://calendly.com/ichoudharyudit/30min" target="_blank" class="group relative inline-flex items-center justify-center px-5 py-2 text-[13px] font-semibold text-black transition-all duration-200 bg-white hover:bg-zinc-200 border border-transparent rounded-full shadow-[0_0_15px_-3px_rgba(255,255,255,0.3)]">
+                    <span>Book Strategy</span>
+                    <iconify-icon icon="solar:arrow-right-linear" class="ml-1.5 text-base transition-transform group-hover:translate-x-0.5"></iconify-icon>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex flex-col w-full">
+        
+        <!-- HERO SECTION -->
+        <section class="relative pt-40 pb-20 md:pt-48 md:pb-24 px-6 overflow-hidden">
+            <div class="max-w-6xl mx-auto flex flex-col items-center text-center">
+                
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand/30 bg-brand/5 backdrop-blur-md mb-8 animate-fade-in-up shadow-[0_0_20px_-5px_rgba(99,102,241,0.3)] hover:bg-brand/10 transition-colors cursor-default">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
+                    </span>
+                    <span class="text-[11px] font-semibold text-brandLight tracking-wide uppercase">90+ Leads in 90 Days — Guaranteed</span>
+                </div>
+                
+                <h1 class="max-w-5xl text-5xl md:text-6xl lg:text-[76px] font-display font-bold tracking-tight text-white leading-[1.05] mb-6 drop-shadow-2xl">
+                    Scale your business with <br>
+                    <span class="text-gradient-animate">intelligent infrastructure.</span>
+                </h1>
+                
+                <p class="max-w-2xl text-lg text-zinc-400 font-light leading-relaxed mb-10">
+                    The complete growth system for modern businesses. We combine AI-driven lead generation with high-converting web experiences.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-3 mb-12 text-[11px] font-medium text-zinc-400">
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:border-brand/30 transition-colors"><iconify-icon icon="solar:verified-check-bold" class="text-brand"></iconify-icon> 800+ Clients Scaled</div>
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:border-brand/30 transition-colors"><iconify-icon icon="solar:verified-check-bold" class="text-brand"></iconify-icon> 4.7x Avg ROI</div>
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:border-brand/30 transition-colors"><iconify-icon icon="solar:verified-check-bold" class="text-brand"></iconify-icon> Data-Driven Strategy</div>
+                    <div class="flex items-center gap-1.5 px-3 py-1.5 bg-brand/10 rounded-lg border border-brand/20 text-brandLight animate-pulse"><iconify-icon icon="solar:clock-circle-bold" class="text-brandLight"></iconify-icon> 3 SPOTS AVAILABLE</div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 mb-20 w-full sm:w-auto">
+                    <a href="https://calendly.com/ichoudharyudit/30min" target="_blank" class="group relative w-full sm:w-auto px-8 py-4 rounded-full bg-white text-black text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_-5px_rgba(255,255,255,0.4)] hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.6)] hover:scale-[1.02] active:scale-[0.98]">
+                        Start Growth Engine
+                        <iconify-icon icon="solar:play-circle-bold" class="text-lg transition-transform group-hover:rotate-90"></iconify-icon>
+                    </a>
+                    <button class="w-full sm:w-auto px-8 py-4 rounded-full bg-transparent border border-white/10 hover:bg-white/5 hover:border-white/20 text-zinc-300 text-sm font-medium transition-all flex items-center justify-center gap-2 hover:text-white">
+                        View Case Studies
+                        <iconify-icon icon="solar:graph-up-linear" class="text-lg"></iconify-icon>
+                    </button>
+                </div>
+
+                <!-- DASHBOARD VISUAL -->
+                <div class="perspective-container w-full max-w-5xl relative group mx-auto">
+                    <!-- Glow behind dashboard -->
+                    <div class="absolute -inset-2 bg-gradient-to-r from-brand/30 via-accent/30 to-brand/30 rounded-[30px] blur-3xl opacity-20 group-hover:opacity-40 transition duration-1000 animate-pulse-slow"></div>
+                    
+                    <div id="dashboard" class="dashboard-mockup relative w-full aspect-[16/9] md:aspect-[2.2/1] bg-[#09090b] rounded-2xl border border-white/10 shadow-2xl overflow-hidden ring-1 ring-white/5">
+                        <!-- Mockup Header -->
+                        <div class="h-10 border-b border-white/5 flex items-center px-4 gap-3 bg-white/[0.03]">
+                            <div class="flex gap-2">
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#FF5F57] shadow-sm"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#FEBC2E] shadow-sm"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#28C840] shadow-sm"></div>
+                            </div>
+                            <div class="flex-1 flex justify-center">
+                                <div class="flex items-center gap-2 px-4 py-1 rounded-md bg-black/40 border border-white/5">
+                                    <iconify-icon icon="solar:lock-keyhole-minimalistic-bold" class="text-zinc-500 text-[10px]"></iconify-icon>
+                                    <div class="text-[10px] font-mono text-zinc-500">boostwave.ai/dashboard</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mockup Body -->
+                        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 h-full relative">
+                            <!-- Scanning Line Effect -->
+                            <div class="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-brand to-transparent z-20 pointer-events-none opacity-50 blur-[1px] animate-scan"></div>
+
+                            <!-- Left: Stats -->
+                            <div class="space-y-4">
+                                <div class="p-5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors group/stat relative overflow-hidden">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="text-zinc-500 text-[10px] uppercase tracking-wider font-bold">Monthly Leads</div>
+                                        <iconify-icon icon="solar:users-group-rounded-linear" class="text-zinc-600 group-hover/stat:text-white transition-colors"></iconify-icon>
+                                    </div>
+                                    <div class="text-3xl font-display text-white font-bold tracking-tight">1,248</div>
+                                    <div class="flex items-center gap-1 text-brandLight text-[10px] mt-2">
+                                        <iconify-icon icon="solar:trending-up-bold"></iconify-icon>
+                                        +24% vs last month
+                                    </div>
+                                </div>
+                                <div class="p-5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors group/stat relative overflow-hidden">
+                                     <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity"></div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <div class="text-zinc-500 text-[10px] uppercase tracking-wider font-bold">Conversion Rate</div>
+                                        <iconify-icon icon="solar:pie-chart-2-linear" class="text-zinc-600 group-hover/stat:text-white transition-colors"></iconify-icon>
+                                    </div>
+                                    <div class="text-3xl font-display text-white font-bold tracking-tight">8.4%</div>
+                                    <div class="flex items-center gap-1 text-green-400 text-[10px] mt-2">
+                                        <iconify-icon icon="solar:check-circle-bold"></iconify-icon>
+                                        Top 1% Industry
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Middle: Graph -->
+                            <div class="md:col-span-2 rounded-xl border border-white/5 bg-white/[0.02] relative overflow-hidden flex flex-col p-6">
+                                <div class="flex justify-between items-center mb-8">
+                                    <div>
+                                        <div class="text-sm text-white font-medium">Pipeline Velocity</div>
+                                        <div class="text-xs text-zinc-500">Live data stream</div>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <button class="px-2 py-1 rounded text-[10px] font-medium text-white bg-white/10">1H</button>
+                                        <button class="px-2 py-1 rounded text-[10px] font-medium text-zinc-500 hover:text-zinc-300">24H</button>
+                                        <button class="px-2 py-1 rounded text-[10px] font-medium text-zinc-500 hover:text-zinc-300">7D</button>
+                                    </div>
+                                </div>
+                                <div class="flex-1 relative flex items-end gap-3 px-2">
+                                    <!-- Dynamic Bars -->
+                                    <div class="w-full bg-zinc-800/40 h-[30%] rounded-sm"></div>
+                                    <div class="w-full bg-zinc-800/40 h-[45%] rounded-sm"></div>
+                                    <div class="w-full bg-zinc-800/40 h-[35%] rounded-sm"></div>
+                                    <div class="w-full bg-brand/20 h-[50%] rounded-sm relative overflow-hidden"><div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-brand/40 to-transparent"></div></div>
+                                    <div class="w-full bg-brand/40 h-[65%] rounded-sm relative overflow-hidden"><div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-brand/60 to-transparent"></div></div>
+                                    <div class="w-full bg-brand h-[85%] rounded-sm shadow-[0_0_15px_rgba(99,102,241,0.5)] relative">
+                                        <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-bold px-2 py-1 rounded shadow-lg animate-float">Target</div>
+                                    </div>
+                                    <div class="w-full bg-zinc-800/40 h-[60%] rounded-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRUST LOGOS -->
+        <section class="border-y border-white/5 bg-white/[0.01]">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <p class="text-center text-xs text-zinc-500 font-medium tracking-widest uppercase mb-8">Trusted by high-growth companies</p>
+                <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-40 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div class="flex items-center gap-2 text-white font-display font-bold text-xl"><iconify-icon icon="solar:box-minimalistic-bold-duotone"></iconify-icon> Acme Corp</div>
+                    <div class="flex items-center gap-2 text-white font-display font-bold text-xl"><iconify-icon icon="solar:atom-bold-duotone"></iconify-icon> Nexus</div>
+                    <div class="flex items-center gap-2 text-white font-display font-bold text-xl"><iconify-icon icon="solar:earth-bold-duotone"></iconify-icon> Global</div>
+                    <div class="flex items-center gap-2 text-white font-display font-bold text-xl"><iconify-icon icon="solar:rocket-bold-duotone"></iconify-icon> LaunchPad</div>
+                    <div class="flex items-center gap-2 text-white font-display font-bold text-xl"><iconify-icon icon="solar:shield-bold-duotone"></iconify-icon> Fortify</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE PROBLEM -->
+        <section id="problem" class="py-32 px-6 relative">
+             <div class="absolute right-0 top-1/4 w-[500px] h-[500px] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white tracking-tight mb-6">The "Agency" Model is Broken.</h2>
+                    <p class="text-zinc-400 max-w-2xl mx-auto text-base leading-relaxed">Stop piecing together freelancers and disjointed tools. Fragmented systems lead to fragmented results.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Cards with hover spotlight feel -->
+                    <div class="glass-card p-8 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/10 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:danger-triangle-linear" class="text-2xl"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-medium mb-3 text-lg">Leaky Funnels</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">You're driving traffic to a website that isn't built to convert, wasting ad spend.</p>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/10 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:chat-unread-linear" class="text-2xl"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-medium mb-3 text-lg">Slow Response</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">Leads go cold because manual follow-up takes too long. Speed is everything.</p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-2xl group">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/10 flex items-center justify-center text-red-500 mb-6 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:graph-down-linear" class="text-2xl"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-medium mb-3 text-lg">Zero Accountability</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">Agencies charge retainers regardless of performance. You take all the risk.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUTION -->
+        <section class="py-24 px-6 relative bg-black border-t border-white/5 overflow-hidden">
+             <!-- Ambient Glow -->
+             <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand/5 blur-[150px] rounded-full pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="mb-20 text-center">
+                    <span class="text-brand font-medium tracking-wider text-sm uppercase mb-4 block">The Boostwave Ecosystem</span>
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">Complete Growth Infrastructure</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+                    <!-- Feature 1: Guarantee (Large) -->
+                    <div class="glass-card p-10 rounded-3xl md:col-span-4 relative overflow-hidden group">
+                         <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-brand/20 to-transparent opacity-50 transition-opacity group-hover:opacity-80"></div>
+                         <!-- Decorative Icon -->
+                        <iconify-icon icon="solar:shield-check-bold" class="absolute top-8 right-8 text-8xl text-brand/10 transition-transform group-hover:rotate-12 group-hover:scale-110"></iconify-icon>
+                        
+                        <div class="relative z-10 max-w-lg h-full flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-xl bg-brand/20 border border-brand/30 flex items-center justify-center mb-6">
+                                    <iconify-icon icon="solar:medal-star-bold" class="text-2xl text-brandLight"></iconify-icon>
+                                </div>
+                                <h3 class="text-2xl text-white font-bold mb-4">Performance Guarantee</h3>
+                                <p class="text-zinc-400 text-base leading-relaxed">
+                                    We don't just promise. We contractually guarantee <span class="text-white font-semibold">90+ qualified leads in 90 days</span> or you don't pay a single dime.
+                                </p>
+                            </div>
+                            <div class="mt-8 flex gap-4">
+                                <div class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white flex items-center gap-2">
+                                    <iconify-icon icon="solar:check-read-linear" class="text-brand"></iconify-icon> Zero Risk
+                                </div>
+                                <div class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs text-white flex items-center gap-2">
+                                    <iconify-icon icon="solar:check-read-linear" class="text-brand"></iconify-icon> Contractual Protection
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2: AI (Tall) -->
+                    <div class="glass-card p-8 rounded-3xl md:col-span-2 relative overflow-hidden group">
+                         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 z-0"></div>
+                         <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 z-0 mix-blend-overlay"></div>
+                         
+                         <div class="relative z-10 flex flex-col h-full items-center text-center justify-center">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-brandDark to-brand flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(99,102,241,0.4)] animate-float">
+                                 <iconify-icon icon="solar:cpu-bolt-bold" class="text-4xl text-white"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl text-white font-bold mb-2">AI Precision</h3>
+                            <p class="text-zinc-400 text-sm">
+                                Algorithms that optimize your campaigns every hour, 24/7.
+                            </p>
+                         </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="glass-card p-8 rounded-3xl md:col-span-2 relative overflow-hidden group hover:bg-white/[0.03]">
+                        <div class="flex items-start justify-between mb-8">
+                             <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                 <iconify-icon icon="solar:layers-minimalistic-bold" class="text-2xl text-white"></iconify-icon>
+                            </div>
+                            <iconify-icon icon="solar:arrow-right-up-linear" class="text-zinc-600 group-hover:text-white transition-colors"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">All-in-One</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">
+                            Web, Ads, Copy, and Nurturing. Integrated perfectly.
+                        </p>
+                    </div>
+
+                     <!-- Feature 4 -->
+                     <div class="glass-card p-8 rounded-3xl md:col-span-2 relative overflow-hidden group hover:bg-white/[0.03]">
+                         <div class="flex items-start justify-between mb-8">
+                             <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                 <iconify-icon icon="solar:user-hand-up-bold" class="text-2xl text-white"></iconify-icon>
+                            </div>
+                            <iconify-icon icon="solar:arrow-right-up-linear" class="text-zinc-600 group-hover:text-white transition-colors"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">White Glove</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">
+                            Dedicated strategist. Weekly reports. You are never alone.
+                        </p>
+                    </div>
+
+                    <!-- Feature 5 -->
+                     <div class="glass-card p-8 rounded-3xl md:col-span-2 relative overflow-hidden group hover:bg-white/[0.03]">
+                         <div class="flex items-start justify-between mb-8">
+                             <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                 <iconify-icon icon="solar:tuning-square-2-bold" class="text-2xl text-white"></iconify-icon>
+                            </div>
+                            <iconify-icon icon="solar:arrow-right-up-linear" class="text-zinc-600 group-hover:text-white transition-colors"></iconify-icon>
+                        </div>
+                        <h3 class="text-white font-bold text-lg mb-2">Optimization</h3>
+                        <p class="text-zinc-500 text-sm leading-relaxed">
+                            Continuous A/B testing of creatives and landing pages.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICES TABS STYLE -->
+        <section id="services" class="py-32 px-6 relative bg-black border-t border-white/5">
+            <div class="max-w-5xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl font-display font-bold text-white tracking-tight mb-4">Our Core Services</h2>
+                    <p class="text-zinc-400">Everything you need to dominate your market.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Service Card 1 -->
+                    <div class="glass-card p-1 group relative overflow-hidden rounded-2xl">
+                         <div class="bg-[#0A0A0A] h-full rounded-xl p-8 relative z-10 transition-colors group-hover:bg-[#0f0f0f]">
+                            <div class="w-14 h-14 rounded-full bg-brand/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <iconify-icon icon="solar:rocket-bold" class="text-3xl text-brand"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl text-white font-bold mb-3">Targeted Lead Gen</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                We deploy multi-channel campaigns on Meta, Google, and LinkedIn using predictive AI to find buyers, not lookie-loos.
+                            </p>
+                         </div>
+                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                    </div>
+
+                    <!-- Service Card 2 -->
+                    <div class="glass-card p-1 group relative overflow-hidden rounded-2xl">
+                         <div class="bg-[#0A0A0A] h-full rounded-xl p-8 relative z-10 transition-colors group-hover:bg-[#0f0f0f]">
+                            <div class="w-14 h-14 rounded-full bg-blue-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <iconify-icon icon="solar:laptop-minimalistic-bold" class="text-3xl text-blue-500"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl text-white font-bold mb-3">Conversion Web Design</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Beautiful, lightning-fast landing pages engineered with psychological triggers that turn visitors into appointments.
+                            </p>
+                         </div>
+                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 delay-100"></div>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="glass-card p-1 group relative overflow-hidden rounded-2xl">
+                         <div class="bg-[#0A0A0A] h-full rounded-xl p-8 relative z-10 transition-colors group-hover:bg-[#0f0f0f]">
+                            <div class="w-14 h-14 rounded-full bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <iconify-icon icon="solar:pen-new-square-bold" class="text-3xl text-purple-500"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl text-white font-bold mb-3">Persuasive Copywriting</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Direct-response copy that cuts through the noise. We write ads and emails that trigger emotional buying decisions.
+                            </p>
+                         </div>
+                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 delay-200"></div>
+                    </div>
+
+                    <!-- Service Card 4 -->
+                    <div class="glass-card p-1 group relative overflow-hidden rounded-2xl">
+                         <div class="bg-[#0A0A0A] h-full rounded-xl p-8 relative z-10 transition-colors group-hover:bg-[#0f0f0f]">
+                            <div class="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <iconify-icon icon="solar:chat-round-dots-bold" class="text-3xl text-green-500"></iconify-icon>
+                            </div>
+                            <h3 class="text-xl text-white font-bold mb-3">Automated Nurturing</h3>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                AI sales assistants that follow up with leads instantly via SMS and Email, booking calls on your calendar 24/7.
+                            </p>
+                         </div>
+                         <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 delay-300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="py-32 px-6 relative overflow-hidden">
+            <!-- Background Glow -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black via-brand/10 to-black pointer-events-none"></div>
+            
+            <div class="max-w-3xl mx-auto text-center relative z-10">
+                <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-white/5 border border-white/10 mb-8 animate-float">
+                    <iconify-icon icon="solar:bolt-circle-bold" class="text-3xl text-white"></iconify-icon>
+                </div>
+                
+                <h2 class="text-5xl md:text-6xl font-display font-bold text-white tracking-tight mb-6">Ready to scale?</h2>
+                <p class="text-zinc-400 mb-12 text-lg font-light max-w-xl mx-auto">Stop guessing. Start growing with the AI infrastructure used by industry leaders.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://calendly.com/ichoudharyudit/30min" target="_blank" class="px-10 py-5 rounded-full bg-white text-black text-base font-bold hover:bg-zinc-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.5)] inline-flex items-center justify-center hover:scale-105">
+                        Schedule Strategy Call
+                    </a>
+                </div>
+                
+                <div class="mt-16 flex flex-col md:flex-row items-center justify-center gap-8 text-xs text-zinc-500 font-medium uppercase tracking-wide">
+                    <div class="flex items-center gap-2"><iconify-icon icon="solar:check-circle-bold" class="text-brand"></iconify-icon> No setup fees</div>
+                    <div class="flex items-center gap-2"><iconify-icon icon="solar:check-circle-bold" class="text-brand"></iconify-icon> Money Back Guarantee</div>
+                    <div class="flex items-center gap-2"><iconify-icon icon="solar:check-circle-bold" class="text-brand"></iconify-icon> Cancel Anytime</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="border-t border-white/5 bg-black pt-20 pb-10 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                    <div class="md:col-span-5">
+                        <!-- FOOTER LOGO -->
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="logo-mark relative flex items-center justify-center w-8 h-8 rounded-lg border border-white/5">
+                                <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-brand/20 to-transparent opacity-50"></div>
+                                <iconify-icon icon="solar:infinity-bold" class="relative z-10 text-white text-sm"></iconify-icon>
+                            </div>
+                            <span class="text-lg font-display font-bold text-white tracking-tight">Boostwave</span>
+                        </div>
+                        <p class="text-zinc-500 text-sm leading-relaxed max-w-sm mb-8">
+                            The intelligent growth partner for ambitious businesses. We combine data, design, and AI to deliver predictable revenue.
+                        </p>
+                        
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-brand/20 transition-all">
+                                <iconify-icon icon="solar:camera-linear"></iconify-icon>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-brand/20 transition-all">
+                                <iconify-icon icon="solar:letter-linear"></iconify-icon>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 hover:text-white hover:bg-brand/20 transition-all">
+                                <iconify-icon icon="solar:phone-calling-linear"></iconify-icon>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <h4 class="text-white text-sm font-bold mb-6">Platform</h4>
+                        <ul class="space-y-4 text-sm text-zinc-500">
+                            <li><a href="#" class="hover:text-brand transition-colors">How it works</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Pricing</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Showcase</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Integration</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <h4 class="text-white text-sm font-bold mb-6">Company</h4>
+                        <ul class="space-y-4 text-sm text-zinc-500">
+                            <li><a href="#" class="hover:text-brand transition-colors">About</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Careers</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Contact</a></li>
+                            <li><a href="#" class="hover:text-brand transition-colors">Privacy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="md:col-span-3">
+                         <h4 class="text-white text-sm font-bold mb-6">Get Updates</h4>
+                         <div class="flex gap-2">
+                             <input type="email" placeholder="Enter your email" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand/50 w-full transition-colors">
+                             <button class="bg-white text-black rounded-lg px-4 py-2.5 font-bold hover:bg-zinc-200 transition-colors">
+                                 <iconify-icon icon="solar:arrow-right-linear"></iconify-icon>
+                             </button>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-zinc-600 text-xs">
+                        © 2026 Boostwave AI Inc.
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-zinc-500 text-xs font-mono">ALL SYSTEMS OPERATIONAL</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Animation Scripts -->
+    <script>
+        // Smooth Dashboard Tilt
+        const dashboard = document.getElementById('dashboard');
+        const container = document.querySelector('.perspective-container');
+
+        if(container && dashboard) {
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Limit rotation
+                const rotateX = ((y - centerY) / centerY) * -8;
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                dashboard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                dashboard.style.transform = `rotateX(10deg) rotateY(0deg) scale(0.95)`;
+            });
+        }
+    </script>
+
+</body></html>
